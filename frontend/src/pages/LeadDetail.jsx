@@ -14,8 +14,13 @@ export default function LeadDetail() {
   const [error, setError] = useState('');
 
   const load = useCallback(async () => {
-    const res = await request(`/leads/${id}`, { token: user.token });
-    setLead(res.data);
+    setError('');
+    try {
+      const res = await request(`/leads/${id}`, { token: user.token });
+      setLead(res.data);
+    } catch (err) {
+      setError(err.message);
+    }
   }, [id, user.token]);
 
   useEffect(() => { load(); }, [load]);
@@ -74,6 +79,7 @@ export default function LeadDetail() {
             {STATUSES.map((s) => (
               <button
                 key={s}
+                id={`status-pill-${s}`}
                 className={`pill ${lead.status === s ? 'pill-active' : ''}`}
                 disabled={!canModify}
                 onClick={() => updateStatus(s)}
@@ -86,7 +92,7 @@ export default function LeadDetail() {
         {user.role === 'admin' && (
           <div className="card">
             <h3>Assignment</h3>
-            <select value={lead.assignedTo?._id || ''} onChange={(e) => assign(e.target.value)}>
+            <select id="assign-select" value={lead.assignedTo?._id || ''} onChange={(e) => assign(e.target.value)}>
               <option value="">Unassigned</option>
               {users.map((u) => <option key={u._id} value={u._id}>{u.name} ({u.role})</option>)}
             </select>
@@ -104,8 +110,8 @@ export default function LeadDetail() {
           </ul>
           {canModify && (
             <form onSubmit={addNote} className="inline-form">
-              <input value={note} onChange={(e) => setNote(e.target.value)} placeholder="Add a note…" />
-              <button type="submit">Add</button>
+              <input id="note-input" value={note} onChange={(e) => setNote(e.target.value)} placeholder="Add a note…" />
+              <button id="add-note-btn" type="submit">Add</button>
             </form>
           )}
         </div>

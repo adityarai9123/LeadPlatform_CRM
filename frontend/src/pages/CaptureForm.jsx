@@ -31,13 +31,23 @@ export default function CaptureForm() {
         <div className="card success">Thanks — we've received your details and will reach out soon.</div>
       ) : (
         <form onSubmit={onSubmit} className="card">
-          <label>Full name *<input name="name" required value={form.name} onChange={onChange} /></label>
-          <label>Email *<input type="email" name="email" required value={form.email} onChange={onChange} /></label>
-          <label>Phone<input name="phone" value={form.phone} onChange={onChange} /></label>
-          <label>Company<input name="company" value={form.company} onChange={onChange} /></label>
-          <label>Message<textarea name="message" rows="3" value={form.message} onChange={onChange} /></label>
+          <label htmlFor="capture-name">Full name *</label>
+          <input id="capture-name" name="name" required value={form.name} onChange={onChange} />
+          
+          <label htmlFor="capture-email">Email *</label>
+          <input id="capture-email" type="email" name="email" required value={form.email} onChange={onChange} />
+          
+          <label htmlFor="capture-phone">Phone</label>
+          <input id="capture-phone" name="phone" value={form.phone} onChange={onChange} />
+          
+          <label htmlFor="capture-company">Company</label>
+          <input id="capture-company" name="company" value={form.company} onChange={onChange} />
+          
+          <label htmlFor="capture-message">Message</label>
+          <textarea id="capture-message" name="message" rows="3" value={form.message} onChange={onChange} />
+          
           {error && <p className="error">{error}</p>}
-          <button type="submit" disabled={status === 'loading'}>
+          <button id="capture-submit-btn" type="submit" disabled={status === 'loading'}>
             {status === 'loading' ? 'Submitting…' : 'Submit'}
           </button>
         </form>

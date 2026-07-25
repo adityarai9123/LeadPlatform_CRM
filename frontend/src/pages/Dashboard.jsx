@@ -67,8 +67,8 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="toolbar">
-        <input placeholder="Search name, email, company…" value={q} onChange={(e) => setQ(e.target.value)} />
-        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+        <input id="search-input" placeholder="Search name, email, company…" value={q} onChange={(e) => setQ(e.target.value)} />
+        <select id="status-filter" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
           <option value="">All statuses</option>
           {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
         </select>

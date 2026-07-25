@@ -10,8 +10,13 @@ export default function AdminUsers() {
   const [ok, setOk] = useState('');
 
   const load = useCallback(async () => {
-    const res = await request('/users', { token: user.token });
-    setUsers(res.data);
+    setError('');
+    try {
+      const res = await request('/users', { token: user.token });
+      setUsers(res.data);
+    } catch (err) {
+      setError(err.message);
+    }
   }, [user.token]);
 
   useEffect(() => { load(); }, [load]);
@@ -35,14 +40,14 @@ export default function AdminUsers() {
       <p className="muted">Admin-only. Creates the login credentials for a new team member.</p>
 
       <form onSubmit={onSubmit} className="card inline-form-col">
-        <input name="name" placeholder="Name" value={form.name} onChange={onChange} required />
-        <input name="email" type="email" placeholder="Email" value={form.email} onChange={onChange} required />
-        <input name="password" type="password" placeholder="Temporary password" value={form.password} onChange={onChange} required />
-        <select name="role" value={form.role} onChange={onChange}>
+        <input id="user-name" name="name" placeholder="Name" value={form.name} onChange={onChange} required />
+        <input id="user-email" name="email" type="email" placeholder="Email" value={form.email} onChange={onChange} required />
+        <input id="user-password" type="password" name="password" placeholder="Temporary password" value={form.password} onChange={onChange} required />
+        <select id="user-role" name="role" value={form.role} onChange={onChange}>
           <option value="member">member</option>
           <option value="admin">admin</option>
         </select>
-        <button type="submit">Create user</button>
+        <button id="user-submit-btn" type="submit">Create user</button>
       </form>
       {error && <p className="error">{error}</p>}
       {ok && <p className="success-text">{ok}</p>}
