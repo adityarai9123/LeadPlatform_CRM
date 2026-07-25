@@ -142,3 +142,7 @@ an admin, and wrote the two permission-boundary tests in `tests/leads.test.js`
 to lock that in. I also rewrote the activity trail to be a proper embedded
 event log instead of a single "last updated" field, since a sales team
 actually cares about the history, not just the current state.
+
+
+Live Frontend: https://lead-platform-crm-git-main-adi9123rai-6185s-projects.vercel.app
+Backend API: https://leadplatform-crm.onrender.com
